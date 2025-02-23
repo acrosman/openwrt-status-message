@@ -1,9 +1,9 @@
 local http = require("socket.http")
 local ltn12 = require("ltn12")
-local json = require("dkjson") -- Make sure to install lua-dkjson if not already installed
+local json = require("dkjson")
 
 -- Function to get the status of a network interface using ubus
-local function get_interface_status(interface)
+function get_interface_status(interface)
     local handle = io.popen("ubus call network.interface." .. interface .. " status")
     local result = handle:read("*a")
     handle:close()
@@ -11,7 +11,7 @@ local function get_interface_status(interface)
 end
 
 -- Function to get the status of wifi radios using ubus
-local function get_wifi_status()
+function get_wifi_status()
     local handle = io.popen("ubus call network.wireless status")
     local result = handle:read("*a")
     handle:close()
@@ -34,7 +34,7 @@ local json_data = {
 local json_string = json.encode(json_data)
 
 -- Function to send a POST request
-local function send_post_request(url, data)
+function send_post_request(url, data)
     local response_body = {}
 
     local res, code, response_headers, status = http.request {
@@ -50,8 +50,3 @@ local function send_post_request(url, data)
 
     return table.concat(response_body), code, response_headers, status
 end
-
--- Send the POST request and print the response
-local response, code, headers, status = send_post_request(api_url, json_string)
-print("Response code: " .. code)
-print("Response from server: " .. response)
