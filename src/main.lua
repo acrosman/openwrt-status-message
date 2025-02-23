@@ -1,7 +1,3 @@
--- Ensure that the luasocket, luasec, and lua-dkjson libraries are installed on your OpenWrt device.
--- You can install them using the following commands:
--- opkg update && opkg install luasocket luasec lua-dkjson
-
 local http = require("socket.http")
 local ltn12 = require("ltn12")
 local json = require("dkjson") -- Make sure to install lua-dkjson if not already installed
@@ -48,7 +44,7 @@ local function send_post_request(url, data)
             ["Content-Type"] = "application/json",
             ["Content-Length"] = tostring(#data)
         },
-        source = ltn12.source.string(data), -- Create a source from the JSON string
+        source = ltn12.source.string(data),    -- Create a source from the JSON string
         sink = ltn12.sink.table(response_body) -- Collect the response data into a table
     }
 
