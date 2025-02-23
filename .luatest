@@ -1,6 +1,0 @@
-test_path = "tests/"
-reporter = "spec"
-timeout = 5000
-setup = function()
-    -- Setup code here
-end
