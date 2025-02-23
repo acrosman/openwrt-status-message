@@ -1,6 +1,9 @@
 local busted = require('busted')
 local json = require('dkjson')
 
+-- Include the file being tested
+dofile("src/main.lua")
+
 -- Mocking io.popen to simulate ubus call responses
 local function mock_popen(command)
     local handle = {}
