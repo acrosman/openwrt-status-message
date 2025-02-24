@@ -1,0 +1,169 @@
+meta {
+  name: Post Status
+  type: http
+  seq: 2
+}
+
+post {
+  url: https://spinningcode.org/wifi/listener.php
+  body: json
+  auth: basic
+}
+
+auth:basic {
+  username: your_username_here
+  password: your_password_here
+}
+
+body:json {
+  {
+      wan_status = {
+    "up": true,
+    "pending": false,
+    "available": true,
+    "autostart": true,
+    "dynamic": false,
+    "uptime": 244930,
+    "l3_device": "eth0.2",
+    "proto": "dhcp",
+    "device": "eth0.2",
+    "metric": 0,
+    "dns_metric": 0,
+    "delegation": true,
+    "ipv4-address": [
+      {
+        "address": "1.1.1.1",
+        "mask": 22
+      }
+    ],
+    "ipv6-address": [
+      
+    ],
+    "ipv6-prefix": [
+      
+    ],
+    "ipv6-prefix-assignment": [
+      
+    ],
+    "route": [
+      {
+        "target": "0.0.0.0",
+        "mask": 0,
+        "nexthop": "1.1.1.1",
+        "source": "1.1.1.1/32"
+      }
+    ],
+    "dns-server": [
+      "3.3.3.3",
+      "2.2.2.2"
+    ],
+    "dns-search": [
+      
+    ],
+    "neighbors": [
+      
+    ],
+    "inactive": {
+      "ipv4-address": [
+        
+      ],
+      "ipv6-address": [
+        
+      ],
+      "route": [
+        
+      ],
+      "dns-server": [
+        
+      ],
+      "dns-search": [
+        
+      ],
+      "neighbors": [
+        
+      ]
+    },
+    "data": {
+      "dhcpserver": "4.4.4.4",
+      "leasetime": 259200,
+      "timezone": -18000
+    }
+  },
+      wifi_status = {
+    "radio0": {
+      "up": true,
+      "pending": false,
+      "autostart": true,
+      "disabled": false,
+      "retry_setup_failed": false,
+      "config": {
+        "path": "pci0000:00/0000:00:00.0",
+        "band": "5g",
+        "channel": "auto",
+        "cell_density": 0,
+        "htmode": "HT20"
+      },
+      "interfaces": [
+        {
+          "section": "default_radio0",
+          "ifname": "wlan0",
+          "config": {
+            "mode": "ap",
+            "ssid": "SampleId",
+            "key": "UseGoodPasswords",
+            "encryption": "psk-mixed",
+            "network": [
+              "lan"
+            ],
+            "mode": "ap"
+          },
+          "vlans": [
+            
+          ],
+          "stations": [
+            
+          ]
+        }
+      ]
+    },
+    "radio1": {
+      "up": true,
+      "pending": false,
+      "autostart": true,
+      "disabled": false,
+      "retry_setup_failed": false,
+      "config": {
+        "path": "platform/ahb/18100000.wmac",
+        "channel": "1",
+        "band": "2g",
+        "htmode": "HT20",
+        "cell_density": 0
+      },
+      "interfaces": [
+        {
+          "section": "default_radio1",
+          "ifname": "wlan1",
+          "config": {
+            "mode": "ap",
+            "key": "UseGoodPasswords",
+            "ssid": "SampleId",
+            "encryption": "sae-mixed",
+            "network": [
+              "lan"
+            ],
+            "mode": "ap"
+          },
+          "vlans": [
+            
+          ],
+          "stations": [
+            
+          ]
+        }
+      ]
+    }
+  }
+  ,
+      timestamp = '2025-01-01 12:00:00'
+  }
+}
