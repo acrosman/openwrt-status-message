@@ -1,6 +1,7 @@
 local http = require("socket.http")
 local ltn12 = require("ltn12")
 local json = require("dkjson")
+local mime = require("mime")
 
 -- Function to get the status of a network interface using ubus
 function get_interface_status(interface)
@@ -18,7 +19,9 @@ function get_wifi_status()
     return json.decode(result)
 end
 
-local api_url = "https://spinningcode.org/api/endpoint"
+local api_url = "https://spinningcode.org/wifi/listener.php"
+local username = "your_username_here" -- Add your username here
+local password = "your_password_here" -- Add your password here
 
 -- Get the status of wan and wifi radios
 local wan_status = get_interface_status("wan")
@@ -36,13 +39,15 @@ local json_string = json.encode(json_data)
 -- Function to send a POST request
 function send_post_request(url, data)
     local response_body = {}
+    local auth_header = "Basic " .. (mime.b64(username .. ":" .. password))
 
     local res, code, response_headers, status = http.request {
         url = url,
         method = "POST",
         headers = {
             ["Content-Type"] = "application/json",
-            ["Content-Length"] = tostring(#data)
+            ["Content-Length"] = tostring(#data),
+            ["Authorization"] = auth_header    -- Add the Authorization header
         },
         source = ltn12.source.string(data),    -- Create a source from the JSON string
         sink = ltn12.sink.table(response_body) -- Collect the response data into a table

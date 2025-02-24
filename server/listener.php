@@ -2,6 +2,24 @@
 // Function to handle incoming POST requests
 function handle_post_request()
 {
+    // Check for Basic Auth
+    if (! isset($_SERVER['PHP_AUTH_USER']) || ! isset($_SERVER['PHP_AUTH_PW'])) {
+        header('WWW-Authenticate: Basic realm="My Realm"');
+        header('HTTP/1.0 401 Unauthorized');
+        echo 'Unauthorized';
+        exit;
+    }
+
+    $username = $_SERVER['PHP_AUTH_USER'];
+    $password = $_SERVER['PHP_AUTH_PW'];
+
+    // Validate username and password
+    if ($username !== 'your_username_here' || $password !== 'your_password_here') {
+        header('HTTP/1.0 403 Forbidden');
+        echo 'Forbidden';
+        exit;
+    }
+
     // Get the posted JSON data
     $json_data = file_get_contents('php://input');
     $data      = json_decode($json_data, true);
