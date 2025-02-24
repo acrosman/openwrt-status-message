@@ -55,3 +55,5 @@ function send_post_request(url, data)
 
     return table.concat(response_body), code, response_headers, status
 end
+
+local response, code, headers, status = send_post_request(api_url, json_string)
