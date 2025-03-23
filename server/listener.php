@@ -1,26 +1,42 @@
 <?php
-// Basic authentication credentials
-$valid_username = 'your_username_here';
-$valid_password = 'your_password_here';
+// Pre-shared token
+$valid_token = 'your_pre_shared_token_here';
 
-// Function to send authentication headers
-function send_auth_headers()
+// Function to send unauthorized response
+function send_unauthorized_response()
 {
-    header('WWW-Authenticate: Basic realm="Restricted Area"');
     header('HTTP/1.0 401 Unauthorized');
     echo 'Unauthorized';
     exit;
 }
 
-// Check if the user is authenticated
-if (! isset($_SERVER['PHP_AUTH_USER']) || ! isset($_SERVER['PHP_AUTH_PW'])) {
-    send_auth_headers();
-} else {
-    $username = $_SERVER['PHP_AUTH_USER'];
-    $password = $_SERVER['PHP_AUTH_PW'];
+// Function to check the token for POST requests
+function check_post_token()
+{
+    global $valid_token;
 
-    if ($username !== $valid_username || $password !== $valid_password) {
-        send_auth_headers();
+    if (! isset($_SERVER['HTTP_AUTHORIZATION'])) {
+        send_unauthorized_response();
+    } else {
+        $token = $_SERVER['HTTP_AUTHORIZATION'];
+        if ($token !== $valid_token) {
+            send_unauthorized_response();
+        }
+    }
+}
+
+// Function to check the token for GET requests
+function check_get_token()
+{
+    global $valid_token;
+
+    if (! isset($_GET['token'])) {
+        send_unauthorized_response();
+    } else {
+        $token = $_GET['token'];
+        if ($token !== $valid_token) {
+            send_unauthorized_response();
+        }
     }
 }
 
@@ -80,6 +96,8 @@ function display_last_100_lines()
         fclose($file);
     }
 
+    ob_start();
+
     echo '<h1>Home WAN Status</h1>';
 
     // Display the "Up" message if the latest WAN status is up
@@ -115,15 +133,20 @@ function display_last_100_lines()
         echo '</tr>';
     }
     echo '</table>';
+
+    $output = ob_get_clean();
+    echo $output;
 }
 
 // Check if it's a POST request
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    check_post_token();
     handle_post_request();
     http_response_code(200);
     echo 'Data received and recorded.';
     exit;
 }
 
-// Display the last 100 lines of the CSV file on a GET request
+// Check if it's a GET request
+check_get_token();
 display_last_100_lines();
