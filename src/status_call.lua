@@ -20,8 +20,7 @@ function get_wifi_status()
 end
 
 local api_url = "https://spinningcode.org/wifi/listener.php"
-local username = "your_username_here" -- Add your username here
-local password = "your_password_here" -- Add your password here
+local token = "your_pre_shared_token_here" -- Add your pre-shared token here
 
 -- Get the status of wan and wifi radios
 local wan_status = get_interface_status("wan")
@@ -39,7 +38,7 @@ local json_string = json.encode(json_data)
 -- Function to send a POST request
 function send_post_request(url, data)
     local response_body = {}
-    local auth_header = "Basic " .. (mime.b64(username .. ":" .. password))
+    local auth_header = "Bearer " .. token
 
     local res, code, response_headers, status = http.request {
         url = url,
