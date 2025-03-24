@@ -2,6 +2,10 @@
 
 Sends a status message to a pre-defined https endpoint.
 
+_Warning: Most of this is AI generated code for an experiment on the state of the field. See [this blog post](https://spinningcode.org/2025/03/experiments-with-ai-coding/) for more details._
+
+While I do run a version of this code for my own purposes, it is not something I would consider production worthy or ready.
+
 ## Setup
 
 This isn't what I'd call a polished project, at least not yet. So there is some work to do to get everything working.
