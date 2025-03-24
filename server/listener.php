@@ -82,9 +82,10 @@ function display_last_100_lines()
 
     if ($file) {
         while (($line = fgetcsv($file)) !== false) {
-            $lines[] = $line;
+            array_unshift($lines, $line);
+
             if (count($lines) > 100) {
-                array_shift($lines);
+                $lines = array_slice($lines, 0, 100);
             }
         }
         fclose($file);
